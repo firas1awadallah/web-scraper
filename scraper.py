@@ -10,10 +10,12 @@ def get_citations_needed_count(URL):
     for post in all_posts:
         citations_needed_count += 1
     print("Number of citations needed is", citations_needed_count)
+    print("----------------------------------------")
     return citations_needed_count
 
 
 def get_citations_needed_report(URL):
+    num = 1
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, 'html.parser')
     division = soup.find('div', class_="mw-body-content mw-content-ltr")
@@ -23,7 +25,10 @@ def get_citations_needed_report(URL):
         citations = paragraph.find_all("sup", class_="noprint Inline-Template Template-Fact")
         if citations:
             citation_needed_list.append(paragraph.text)
-    print(citation_needed_list)
+    for report in citation_needed_list:
+        print(f"{num} : {report} ") 
+        num+=1       
+   
 
 get_citations_needed_count(URL)
 get_citations_needed_report(URL)   
